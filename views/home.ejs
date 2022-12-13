@@ -1,0 +1,21 @@
+<%# Including header partial %>
+<%- include("partials/header"); -%>
+
+
+<h1>Home</h1>
+
+<% posts.slice().reverse().forEach(function(posts){ %>
+    <div class="box">
+      <h2> <%= posts.postTitle %> </h2>
+      <%# People can see 80 characters in home page %>
+      <% var truncatedString = posts.postContent.substring(0,80); %>
+      <p>
+        <%= truncatedString + "..." %>
+        <%# Read More can go to the Title url %>
+        <a href="/posts/<%= posts._id %>">Read More</a>
+      </p>
+    </div>
+<% }); %>
+
+<%# Including footer partial %>
+<%- include("partials/footer"); -%>

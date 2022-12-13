@@ -1,0 +1,14 @@
+<%- include("partials/header"); -%>
+
+<h1>Compose</h1>
+
+<form action="/compose" method="post">
+  <h3>Title</h3>
+  <input class ="screenWide" type="text" name="titleInput" autofocus="on" autocomplete="off">
+  <br>
+  <h3>Post</h3>
+  <textarea class = "screenWide" name="textArea" rows="8" cols="80" autocomplete="off"></textarea>
+  <button class="btn btn-primary" type="submit" name="submitButton">Publish</button>
+</form>
+
+<%- include("partials/footer"); -%>
