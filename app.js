@@ -67,7 +67,7 @@ app.post("/compose", function(req,res){ // Post request of compose,
       bodyPost: req.body.textArea
     };
 
-    // Sending obtained data to database
+    // Sending obtained object to database by creating another object
     const newPost = new Post({
       postTitle: post.titlePost,
       postContent: post.bodyPost
