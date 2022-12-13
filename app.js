@@ -10,7 +10,7 @@ const mongoose = require ("mongoose"); // Mongoose is required
 mongoose.connect("mongodb+srv://admin-ahmet:2503199600@cluster0.n8hirrx.mongodb.net/myBlogDB"); // Conecting Mongo Database & Collection
 
 // Creating a DB Schema
-const postSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({ // This allows us to record posts in database
   postTitle: String,
   postContent: String,
 });
@@ -18,18 +18,17 @@ const postSchema = new mongoose.Schema({
 // Creating the Collection
 const Post = mongoose.model("post", postSchema); // "posts" collection is created.
 
-
 // Random inputs
 const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
-const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
-const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
+const aboutContent = "You're visiting Ahmet Serteser's blog. I'm not that much interested in sharing my daily stuff, just trying to improve and learn about how to be a better programmer. It requires lots of practise, and this is the way i practise. I'm 24 years old and i'll be coming, to destroy the universe. Take a seat, be patient and get ready for the show.";
+const contactContent = "You can reach me from here:";
 
 // Main post array
 // let posts = [];
 
-// Root Route get request
+// ________________________________________________________________Get Requests
 app.get("/", function(req, res) { // on home route,
-  Post.find({}, function(err, posts){
+  Post.find({}, function(err, posts){ // Find Post objects having "" properties (all)
         res.render("home", { // send "home.ejs"
           posts: posts // "posts" in home.ejs is "posts" in app.js
         });
@@ -52,16 +51,16 @@ app.get("/compose", function (req,res){ // on /compose route,
   res.render("compose"); // send compose.ejs
 });
 
-app.get("/posts/:postId", function(req, res) { // on inputted route,
+app.get("/posts/:postId", function(req, res) { // on inputted post ID route,
   const requestedPostId = req.params.postId; // This is needed constant to store postId parameter value
   Post.findById(requestedPostId, function(err, posts){
         res.render("post", { // send "post.ejs"
-          posts: posts
+          posts: posts // "posts" in post.ejs is "posts" in app.js
         });
       });
 });
 
-
+// ______________________________________________________________Post Requests
 app.post("/compose", function(req,res){ // Post request of compose,
     let post = { // Create an object having 2 properties:
       titlePost: req.body.titleInput,
@@ -72,15 +71,15 @@ app.post("/compose", function(req,res){ // Post request of compose,
     const newPost = new Post({
       postTitle: post.titlePost,
       postContent: post.bodyPost
-    });
+    }); // This is a Post object
 
-    newPost.save(function(err){
-      if(!err){
+    newPost.save(function(err){ // Save the object on database
+      if(!err){ // If there is no error,
         res.redirect("/"); // Redirect us to home route
       }else{
         console.log(err);
       }
-    }); // Saving newPost into database.
+    });
 
     // console.log(post);
     // posts.push(post); // Add this object to posts array
@@ -89,6 +88,6 @@ app.post("/compose", function(req,res){ // Post request of compose,
 
 
 // Running the server
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+app.listen(process.env.PORT || 3000, function() {
+  console.log("Server is ready to roll baby!");
 });

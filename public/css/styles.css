@@ -42,6 +42,22 @@ p{
 	padding-bottom: 60px;
 }
 
+.contact-details{
+  margin-top: 10%;
+  align-content: center;
+  text-align: center;
+}
+.contact-icon{
+  margin: 1%;
+  color: #11999E;
+}
+.contact-icon:hover{
+  color: #61c4c5;
+  text-decoration: none;
+}
+.contactMeText, .aboutMeText{
+  margin-top: 3%;
+}
 .footer {
 	position: absolute;
 	text-align: center;
@@ -50,7 +66,6 @@ p{
 	height: 60px;
 	background-color: #11999E;
 }
-
 .footer p {
 	margin-top: 25px;
 	font-size: 12px;

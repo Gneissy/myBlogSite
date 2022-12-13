@@ -3,7 +3,7 @@
 
 
 <h1>Home</h1>
-
+<%# "posts" are objects having both title and content. %>
 <% posts.slice().reverse().forEach(function(posts){ %>
     <div class="box">
       <h2> <%= posts.postTitle %> </h2>
@@ -12,6 +12,7 @@
       <p>
         <%= truncatedString + "..." %>
         <%# Read More can go to the Title url %>
+        <%# ID of clicked post is a href taking you that url%>
         <a href="/posts/<%= posts._id %>">Read More</a>
       </p>
     </div>
